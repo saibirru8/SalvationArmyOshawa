@@ -12,7 +12,7 @@ import { Redirect, Slot } from "expo-router";
 import { images } from "@/constants";
 
 export default function AuthLayout() {
-  const isAuthenticated: boolean = true;
+  const isAuthenticated: boolean = false;
 
   if (isAuthenticated) return <Redirect href="/" />;
 
