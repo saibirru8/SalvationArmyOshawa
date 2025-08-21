@@ -1,29 +1,27 @@
-import { StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { Calendar } from "react-native-calendars";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
-
-export default function TabOneScreen() {
+const Appointments = () => {
+  const [selected, setSelected] = useState("");
   return (
-    <View className="flex items-center justify-center bg-black">
-      <Text className="text-center font-bold">Tab One</Text>
-    </View>
+    <SafeAreaView>
+      <Calendar
+        className="rounded-md bg-white p-5 w-full"
+        onDayPress={(day) => {
+          setSelected(day.dateString);
+          console.log(day);
+        }}
+        markedDates={{
+          [selected]: {
+            selected: true,
+            disableTouchEvent: true,
+            selectedDotColor: "orange",
+          },
+        }}
+      />
+    </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});
+export default Appointments;
