@@ -1,15 +1,49 @@
 import { createClient } from "@supabase/supabase-js";
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from "@env";
-import Config from "react-native-config";
-import { ReactNode } from "react";
 
-const supabase = createClient(Config.SUPABASE_URL, Config.SUPABASE_ANON_KEY);
+export const supabase = createClient(
+  process.env.EXPO_PUBLIC_SUPABASE_URL!,
+  process.env.EXPO_PUBLIC_SUPABASE_KEY!
+);
 
 interface signInProps {
-    email: string, 
-    password: string
+  email: string;
+  password: string;
 }
 
-export const signInWithEmail = async ({email, password}: signInProps) => {
-    const { data, error } = await supabase.auth.signInWithPassword({email, password})
+interface signUpProps {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
 }
+
+
+
+export const signUpWithEmail = async ({
+  email,
+  password,
+  firstname,
+  lastname,
+}: signUpProps) => {
+  const { data, error: signUpError } = await supabase.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: {
+        first_name: firstname,
+        last_name: lastname,
+      },
+    },
+  });
+  if (signUpError) {
+    console.log("Error sign up", signUpError.message);
+    return;
+  }
+  return data;
+};
+
+export const getActiveSession = async () => {
+  const { data, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError) throw sessionError;
+  return data.session;
+};

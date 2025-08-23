@@ -4,20 +4,56 @@ import React from "react";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
+import { supabase } from "@/services/supabase";
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submitForm = () => {
-    const { email, password } = form;
-    if (!email || !password)
+  // const submitForm = async () => {
+  //   console.log("Signing In");
+  //   // const { email, password } = form;
+  //   console.log(`${form.email} + ${form.password}`);
+  //   if (!form.email || !form.password) {
+  //     return Alert.alert(
+  //       "Invalid Credentials",
+  //       "Please enter valid email address and password."
+  //     );
+  //   } else {
+  //     try {
+  //       setIsSubmitting(true);
+  //       const data = await signInWithEmail(form.email, form.password);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   }
+  //   if (data.session) router.replace("/");
+  // };
+
+  const handleSignIn = async () => {
+    console.log(`signin function: ${form.email}, ${form.password}`);
+    console.log("Signing In");
+    // const { email, password } = form;
+    console.log(`${form.email} + ${form.password}`);
+    if (!form.email || !form.password) {
       return Alert.alert(
         "Invalid Credentials",
         "Please enter valid email address and password."
       );
-    setIsSubmitting(true);
-    router.replace("/");
+    }
+    const { email, password } = form;
+    console.log(`${email}, ${password}`);
+    const { data, error: signInError } = await supabase.auth.signInWithPassword(
+      {
+        email,
+        password,
+      }
+    );
+    if (signInError) {
+      console.log("Error - authentication failed", signInError.message);
+      return;
+    }
+    if (data.session) router.replace("/(tabs)");
   };
 
   return (
@@ -39,7 +75,7 @@ const SignIn = () => {
       <CustomButton
         title="Sign In"
         isLoading={isSubmitting}
-        onPress={submitForm}
+        onPress={handleSignIn}
         textStyle="justify-center items-center"
       />
       <View className="flex justify-center mt-1 flex-row gap-2">

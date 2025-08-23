@@ -10,11 +10,20 @@ import {
 } from "react-native";
 import { Redirect, Slot } from "expo-router";
 import { images } from "@/constants";
+import { useEffect, useState } from "react";
+import { getActiveSession } from "@/services/supabase";
 
 export default function AuthLayout() {
-  const isAuthenticated: boolean = false;
+  const [session, setSession] = useState("");
 
-  if (isAuthenticated) return <Redirect href="/" />;
+  useEffect(() => {
+    async () => {
+      const active = await getActiveSession;
+      setSession(active);
+    };
+  }, []);
+
+  if (session) return <Redirect href={"/(tabs)"} />;
 
   return (
     <KeyboardAvoidingView
