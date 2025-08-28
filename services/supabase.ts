@@ -17,8 +17,6 @@ interface signUpProps {
   lastname: string;
 }
 
-
-
 export const signUpWithEmail = async ({
   email,
   password,
@@ -40,10 +38,4 @@ export const signUpWithEmail = async ({
     return;
   }
   return data;
-};
-
-export const getActiveSession = async () => {
-  const { data, error: sessionError } = await supabase.auth.getSession();
-  if (sessionError) throw sessionError;
-  return data.session;
 };

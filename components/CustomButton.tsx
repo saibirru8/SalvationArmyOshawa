@@ -5,7 +5,6 @@ import { CustomButtonProps } from "@/type";
 const CustomButton = ({
   onPress,
   title = "Click Me",
-  style,
   leftIcon,
   textStyle,
   isLoading = false,

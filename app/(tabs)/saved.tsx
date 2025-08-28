@@ -1,15 +1,14 @@
-import { Text, View, SafeAreaView } from "react-native";
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import react from "react";
 
 const Saved = () => {
   return (
-    <SafeAreaView className="m-2">
       <View>
         <Text className="justify-center align-items-center font-bold text-2xl">
           Saved
         </Text>
       </View>
-    </SafeAreaView>
   );
 };
 

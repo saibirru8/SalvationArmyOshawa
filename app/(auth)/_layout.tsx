@@ -1,31 +1,18 @@
 import {
-  View,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  ImageBackground,
-  Dimensions,
-  Image,
+    View,
+    Text,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    Dimensions, StatusBar,
 } from "react-native";
-import { Redirect, Slot } from "expo-router";
-import { images } from "@/constants";
-import { useEffect, useState } from "react";
-import { getActiveSession } from "@/services/supabase";
+import { Redirect, Slot, Stack } from "expo-router";
+
 
 export default function AuthLayout() {
-  const [session, setSession] = useState("");
-
-  useEffect(() => {
-    async () => {
-      const active = await getActiveSession;
-      setSession(active);
-    };
-  }, []);
-
-  if (session) return <Redirect href={"/(tabs)"} />;
-
   return (
+      <>
+        <StatusBar />
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
@@ -33,22 +20,17 @@ export default function AuthLayout() {
         className="bg-white h-full"
         keyboardShouldPersistTaps="handled"
       >
-        <View
-          className="w-full relative"
-          style={{ height: Dimensions.get("screen").height / 2.25 }}
-        >
-          <ImageBackground
-            source={images.saoshawa}
-            className="size-full rounded-b-lg"
-            resizeMode="contain"
-          />
-          <Image
-            source={images.salogo}
-            className="self-center size-48 absolute -bottom-5 z-10 rounded-lg"
-          />
-        </View>
         <Slot />
+        {/* <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="sign-in" />
+          <Stack.Screen name="sign-up" />
+        </Stack> */}
       </ScrollView>
     </KeyboardAvoidingView>
+      </>
   );
 }

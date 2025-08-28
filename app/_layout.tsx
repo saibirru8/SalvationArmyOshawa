@@ -1,8 +1,11 @@
-import { Stack } from "expo-router";
-import "react-native-reanimated";
-import { StatusBar } from "react-native";
+import { Slot } from "expo-router";
+import { AuthProvider, useAuth } from "@/utils/authState";
 import "../globals.css";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+    return (
+        <AuthProvider>
+            <Slot />
+        </AuthProvider>
+    );
 }
