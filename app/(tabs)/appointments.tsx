@@ -17,7 +17,7 @@ const Appointments = () => {
                     [selected]: {
                         selected: true,
                         disableTouchEvent: true,
-                        selectedColor: "blue",
+                        selectedColor: "light-blue",
                     },
                 }}
             />

@@ -37,42 +37,37 @@ const SignUp = () => {
             );
         }
         setIsSubmitting(true);
-        const {data, error} = await supabase.auth.signUp({
-            email,
-            password,
+        console.log(firstname, lastname, email, password);
+        const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
         });
+        console.log("SIGN UP DATA USER ID DETAILS: ", data.user?.id);
         if (error) {
             setSignUpError(error);
             Alert.alert("Sign Up Failed", error.message, [{text: "OK", style: "default"}]);
             console.log(signUpError);
             return router.push("/(auth)/sign-in");
-        } else {
-            Alert.alert("Success", "Check your email for confirmation");
         }
-
         const user = data.user;
-        const {error: errorInsert} = await supabase.from('users').insert({
-            id: user.id,
+        const {error: errorInsert} = await supabase
+            .from('users')
+            .insert([{
+            id: user?.id,
             first_name: firstname,
             last_name: lastname,
             email: email,
             created_at: new Date(),
-        });
-        setInsertError(errorInsert);
-        console.log("SESSION DETAILS: ", data.session);
-        console.log("INSERT ERROR", insertError);
-        if (insertError) {
-            return Alert.alert(
-                "User Creation Failed",
-                "Please check the user account information."
-            );
-        } else {
-            router.push("/");
-            Alert.alert(
-                "Sign Up Successful",
-                "Sign up was successful and confirm your email address to complete verification"
-            );
+        },]);
+        if (errorInsert)  {
+            setInsertError(errorInsert);
+            Alert.alert("Account Creation Failed", errorInsert.message, [{text: "OK", style: "default"}]);
+            console.log(insertError);
+            return router.push("/(auth)/sign-in");
         }
+
+        Alert.alert("Success", "Check your inbox to complete email verification");
+        return router.push("/(auth)/sign-in");
 };
 
 return (
