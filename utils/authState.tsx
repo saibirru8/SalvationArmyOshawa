@@ -29,10 +29,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const initAuth = async () => {
     const { data } = await supabase.auth.getSession();
-    console.log(data);
+    console.log("Get Session Data - useAuth Hook", data.session);
     setSession(data.session);
-    console.log(data.session);
-    console.log("Init Auth");
     setLoading(false);
   };
   useEffect(() => {
