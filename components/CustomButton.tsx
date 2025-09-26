@@ -11,7 +11,7 @@ const CustomButton = ({
 }: CustomButtonProps) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View className="flex-center flex-row w-full justify-center items-center my-5 bg-blue-500 rounded-lg py-4">
+      <View className="flex-center flex-row w-full justify-center items-center my-5 bg-primary rounded-lg py-4">
         {isLoading ? (
           <ActivityIndicator
             size={"small"}

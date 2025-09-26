@@ -10,51 +10,52 @@ import { useAuth } from "@/utils/authState";
 export default function TabLayout() {
   console.log("session data present in tabs");
   return (
-      <Tabs
-        screenOptions={{
-          headerShown: true,
-          tabBarActiveTintColor: "grey",
+    <Tabs
+      screenOptions={{
+        headerShown: true,
+        tabBarActiveTintColor: "grey",
+        headerShadowVisible: false,
+      }}
+    >
+      <Tabs.Screen
+        name="appointments"
+        options={{
+          title: "Appointments",
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? "calendar-clear" : "calendar-clear-outline"}
+              size={24}
+              color="black"
+            />
+          ),
         }}
-      >
-        <Tabs.Screen
-          name="appointments"
-          options={{
-            title: "Appointments",
-            tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name={focused ? "calendar-clear" : "calendar-clear-outline"}
-                size={24}
-                color="black"
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="saved"
-          options={{
-            title: "Saved",
-            tabBarIcon: ({ color, size, focused }) => (
-              <Ionicons
-                name={focused ? "bookmark" : "bookmark-outline"}
-                size={24}
-                color="black"
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: "Profile",
-            tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name={focused ? "calendar-clear" : "calendar-clear-outline"}
-                size={24}
-                color="black"
-              />
-            ),
-          }}
-        />
-      </Tabs>
+      />
+      <Tabs.Screen
+        name="saved"
+        options={{
+          title: "Saved",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name={focused ? "bookmark" : "bookmark-outline"}
+              size={24}
+              color="black"
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? "calendar-clear" : "calendar-clear-outline"}
+              size={24}
+              color="black"
+            />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }
