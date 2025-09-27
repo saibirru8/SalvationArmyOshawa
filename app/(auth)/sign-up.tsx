@@ -68,7 +68,6 @@ const SignUp = () => {
       console.log(insertError);
       return router.push("/(auth)/sign-in");
     }
-
     Alert.alert("Success", "Check your inbox to complete email verification");
     return router.push("/(auth)/sign-in");
   };
